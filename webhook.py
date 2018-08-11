@@ -36,13 +36,15 @@ def makeresponse(req):
 
     print('Condition  ',condition)
     speech = "The forecast for "+city+" for date "+date+"is "+condition
-    return       {
+    return         "fulfillmentMessages": [
+      {
         "text": {
           "text": [
             speech
           ]
         }
       }
+    ]
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
