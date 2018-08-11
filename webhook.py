@@ -27,14 +27,15 @@ def makeresponse(req):
     dateperiod = param.get('date-period')
     date = param.get('date')
     city = param.get('geo-city')
-
+    if city is None:
+        return None
     r = requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=988f06f4fdfda98d437198145dbfe7b5')
     json_object = r.json()
     weather = json_object['list']
     for i in range(0, len(weather)):
         if date in weather[i]['dt_txt']:
             condition = weather[i]['weather'][0]['description']
-            break;
+            break
 
     speech = "The forecast for "+city+" for date "+date+"is "+condition
     return {
