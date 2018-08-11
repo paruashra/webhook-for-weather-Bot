@@ -5,6 +5,7 @@ import requests
 from flask import Flask
 from flask import request
 from flask import make_response
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -26,6 +27,11 @@ def makeresponse(req):
     param = result.get('parameters')
     dateperiod = param.get('date-period')
     date = param.get('date')
+    date = date[0:19]
+    f = "%Y-%m-%dT%H:%M:%S"
+    datetime = datetime.strptime(date, f)
+    date = str(datetime)
+
     city = param.get('geo-city')
     if city is None:
         return None
@@ -33,12 +39,12 @@ def makeresponse(req):
     json_object = r.json()
     weather = json_object['list']
     condition =''
-    for i in range(0, 30):
+    for i in range(0, len(weather)):
         if date in weather[i]['dt_txt']:
             condition = weather[i]['weather'][0]['description']
             break
 
-    speech = "The forecast for "+city+" for date "+date+"is "+condition
+    speech = "The forecast for "+city+" for date "+date+" is "+condition
     return {
         "fulfillmentText": speech
         #,
