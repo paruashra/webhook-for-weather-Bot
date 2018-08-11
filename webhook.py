@@ -37,15 +37,11 @@ def makeresponse(req):
 
     print('Condition  ',condition)
     speech = "The forecast for "+city+" for date "+date+"is "+condition
-    return         "fulfillmentMessages": [
-      {
-        "text": {
-          "text": [
-            speech
-          ]
+    return {
+        "speech": speech,
+        "displayText": speech,
+        "source": "apiai-weather-webhook"
         }
-      }
-    ]
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
