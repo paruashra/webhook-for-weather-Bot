@@ -40,9 +40,10 @@ def makeresponse(req):
 
     speech = "The forecast for "+city+" for date "+date+"is "+condition
     return {
-        "speech": speech,
-        "displayText": speech,
-        "source": "apiai-weather-webhook"
+        "fulfillmentText": speech
+        #,
+#        "displayText": speech,
+#        "source": "apiai-weather-webhook"
         }
 
 if __name__ == '__main__':
