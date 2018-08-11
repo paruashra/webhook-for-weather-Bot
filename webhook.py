@@ -8,7 +8,7 @@ from flask import make_response
 
 app = Flask(__name__)
 
-@app.route('/webhook', methods =['POST')
+@app.route('/webhook', methods =['POST']
 def webhook():
     req = request.get_json(silent=True, force=True)
     print(json.dumps(req, indent=4))
@@ -21,12 +21,15 @@ def webhook():
 
 
 def makeresponse(req):
+    if req.get("result").get("action") != "fetchWeatherForecast":
+        return {}
     result = req.get('queryResult')
     param = result.get('parameters')
     dateperiod = param.get('date-period')
     date = param.get('date')
     city = param.get('geo-city')
-
+    if city is None:
+        return None
     r = requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=988f06f4fdfda98d437198145dbfe7b5')
     json_object = r.json()
     weather = json_object['list']
