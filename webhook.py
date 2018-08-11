@@ -29,8 +29,8 @@ def makeresponse(req):
     date = param.get('date')
     date = date[0:19]
     f = "%Y-%m-%dT%H:%M:%S"
-    datetime = datetime.strptime(date, f)
-    date = str(datetime)
+    dateti = datetime.strptime(date, f)
+    date = str(dateti)
 
     city = param.get('geo-city')
     if city is None:
